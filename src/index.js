@@ -40,6 +40,10 @@ var app = new Vue({
       this.showGame = true;
       this.showInstructions = false;
     },
+    openSettings() {
+      this.showSettings = true;
+      this.showGame = false;
+    },
 
     getPlayersData() {
       if (window.localStorage.getItem("player1")) {
