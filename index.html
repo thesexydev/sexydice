@@ -34,7 +34,7 @@
 					<div class="card">
 						<div class="card-content">
 							<h1 class="title">Settings</h1>
-							<h2 class="subtitle">Customize your game 😉</h2>
+							<h2 class="subtitle">Customize your game 😏</h2>
 
 							<div class="field is-horizontal">
 								<div class="field-label is-large">
@@ -43,7 +43,8 @@
 								<div class="field-body">
 									<div class="field">
 										<div class="control">
-											<input class="input is-large" type="text" placeholder="Enter name" v-model.trim="player1">
+											<input class="input is-large" type="text" 
+												placeholder="Enter name" v-model.trim="player1">
 										</div>
 									</div>
 								</div>
@@ -55,7 +56,8 @@
 								<div class="field-body">
 									<div class="field">
 										<div class="control">
-											<input class="input is-large" type="text" placeholder="Enter name" v-model.trim="player2">
+											<input class="input is-large" type="text" 
+												placeholder="Enter name" v-model.trim="player2">
 										</div>
 									</div>
 								</div>
@@ -96,14 +98,16 @@
 					<div class="game__instructions" v-if="showInstructions">
 						<h1 class="title game__action">
 							{{randomVerb}}
-							<span v-if="player1 && player2">{{randomPlayer}}'s</span>
+							<span v-if="chkTurns">{{randomPlayer}}'s</span>
 							{{randomBody}}
 						</h1>
 						<h2 class="subtitle game__subaction" v-if="chkTime">
 							for ⏰ {{randomDuration}} seconds
 						</h2>
 					</div>
-					<a class="button is-dark is-large game__btn" :disabled="isBtnDisabled" @click.stop="randomize">Roll the dice 🙈</a>
+					<a class="button is-dark is-large game__btn" 
+						:disabled="isBtnDisabled" 
+						@click.stop="randomize">Roll the dice 🙊</a>
 				</div>
 			</div>
 		</section>
