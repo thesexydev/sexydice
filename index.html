@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="src/styles.styl">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
 	<div id="app">
 		<nav id="navbar" class="navbar is-fixed-top is-light">
@@ -75,12 +74,12 @@
 								<div class="control">
 									<label class="checkbox">
 								<input type="checkbox" v-model="chkTurns">
-								Show player's name
+								Show player's name 
 							</label>
 								</div>
 							</div>
 							<br>
-							<a class="button is-dark is-medium" @click="closeSettings"s>Save</a>
+							<a class="button is-dark is-medium" @click="saveSettings"s>Save</a>
 							<a class="button is-medium" @click="closeSettings">Close</a>
 							</div>
 						</div>
@@ -100,7 +99,7 @@
 							<span v-if="player1 && player2">{{randomPlayer}}'s</span>
 							{{randomBody}}
 						</h1>
-						<h2 class="subtitle game__subaction">
+						<h2 class="subtitle game__subaction" v-if="chkTime">
 							for ⏰ {{randomDuration}} seconds
 						</h2>
 					</div>
