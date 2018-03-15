@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<head>
+	<title>Parcel Sandbox</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+	<link rel="stylesheet" href="src/styles.styl">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<div id="app">
+		<nav id="navbar" class="navbar is-fixed-top is-light">
+			<div class="container">
+				<div class="navbar-brand">
+					<a class="navbar-item logo" href="javascript:;">🔥🎲</a>
+				</div>
+
+				<div  class="navbar-menu">
+					<div class="navbar-end">
+						<a class="navbar-item " href="javascript:;" @click="showSettings = !showSettings">
+							<span class="icon"><i class="fas fa-cog"></i></span>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</nav>
+
+
+		<section class="hero" v-if="showSettings">
+			<div class="hero-body">
+				<div class="container">
+
+					<div class="card">
+						<div class="card-content">
+							<h1 class="title">Settings</h1>
+							<h2 class="subtitle">Customize your game 😉</h2>
+
+							<div class="field is-horizontal">
+								<div class="field-label is-large">
+									<label class="label">Player 1:</label>
+								</div>
+								<div class="field-body">
+									<div class="field">
+										<div class="control">
+											<input class="input is-large" type="text" placeholder="Enter name" v-model.trim="player1">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="field is-horizontal">
+								<div class="field-label is-large">
+									<label class="label">Player 2:</label>
+								</div>
+								<div class="field-body">
+									<div class="field">
+										<div class="control">
+											<input class="input is-large" type="text" placeholder="Enter name" v-model.trim="player2">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="field">
+								<div class="control">
+									<label class="checkbox">
+								<input type="checkbox" v-model="chkTime">
+								Show time for actions
+							</label>
+								</div>
+							</div>
+
+							<div class="field" v-if="player1 && player2">
+								<div class="control">
+									<label class="checkbox">
+								<input type="checkbox" v-model="chkTurns">
+								Show player's name
+							</label>
+								</div>
+							</div>
+							<br>
+							<a class="button is-dark is-medium" @click="closeSettings"s>Save</a>
+							<a class="button is-medium" @click="closeSettings">Close</a>
+							</div>
+						</div>
+
+					</div>					
+			</div>
+		</section>
+
+
+		<section class="hero is-danger" v-if="showGame">
+			<div class="hero-body game__container">
+				<div class="container">
+
+					<div class="game__instructions" v-if="showInstructions">
+						<h1 class="title game__action">
+							{{randomVerb}}
+							<span v-if="player1 && player2">{{randomPlayer}}'s</span>
+							{{randomBody}}
+						</h1>
+						<h2 class="subtitle game__subaction">
+							for ⏰ {{randomDuration}} seconds
+						</h2>
+					</div>
+					<a class="button is-dark is-large game__btn" :disabled="isBtnDisabled" @click.stop="randomize">Roll the dice 🙈</a>
+				</div>
+			</div>
+		</section>
+	
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<script src="src/index.js"></script>
+</body>
+
+</html>
