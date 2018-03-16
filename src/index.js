@@ -8,6 +8,8 @@ var app = new Vue({
   data() {
     return {
       isBtnDisabled: false,
+      listBody: body.join(", "),
+      listVerbs: verbs.join(", "),
       randomVerb: "",
       randomBody: "",
       player1: "",
@@ -17,6 +19,7 @@ var app = new Vue({
       chkTime: true,
       chkTurns: true,
       showSettings: true,
+      showDictionary: false,
       showGame: false,
       showInstructions: false,
       remainingTime: 0,
@@ -30,7 +33,7 @@ var app = new Vue({
     randomize() {
       this.randomVerb = uniqueRandomArray(verbs)();
       this.randomBody = uniqueRandomArray(body)();
-      this.randomDuration = uniqueRandomArray([15, 35, 65])();
+      this.randomDuration = uniqueRandomArray([15, 30, 60])();
       this.randomPlayer = uniqueRandomArray([this.player1, this.player2])();
       this.showInstructions = true;
     },
@@ -40,9 +43,22 @@ var app = new Vue({
       this.showGame = true;
       this.showInstructions = false;
     },
+    closeDictionary() {
+      this.showSettings = false;
+      this.showGame = true;
+      this.showInstructions = false;
+      this.showDictionary = false;
+    },
     openSettings() {
       this.showSettings = true;
       this.showGame = false;
+      this.showDictionary = false;
+    },
+
+    openDictionary() {
+      this.showDictionary = true;
+      this.showGame = false;
+      this.showSettings = false;
     },
 
     getPlayersData() {
@@ -54,8 +70,16 @@ var app = new Vue({
         this.player2 = window.localStorage.getItem("player2");
       }
     },
+    getDictionarySavedData() {
+      if (window.localStorage.getItem("verbs")) {
+        this.listVerbs = window.localStorage.getItem("verbs");
+      }
+
+      if (window.localStorage.getItem("body")) {
+        this.listBody = window.localStorage.getItem("body");
+      }
+    },
     savePlayersData() {
-      console.log("savePlayersData");
       if (this.player1) {
         window.localStorage.setItem("player1", this.player1);
       }
@@ -64,9 +88,43 @@ var app = new Vue({
         window.localStorage.setItem("player2", this.player2);
       }
     },
+    saveDictionaryData() {
+      if (this.listVerbs) {
+        this.listVerbs = this.listVerbs;
+        verbs = this.listVerbs
+          .split(",")
+          .map(item => item.trim())
+          .filter(word => word !== "");
+        window.localStorage.setItem("verbs", this.listVerbs);
+      }
+      if (this.listBody) {
+        this.listBody = this.listBody;
+        body = this.listBody
+          .split(",")
+          .map(item => item.trim())
+          .filter(word => word !== "");
+        window.localStorage.setItem("body", this.listBody);
+      }
+    },
     saveSettings() {
       this.savePlayersData();
       this.closeSettings();
+    },
+    saveDictionary() {
+      this.saveDictionaryData();
+      this.closeDictionary();
+    },
+    resetDictionary() {
+      if (window.localStorage.getItem("verbs"))
+        window.localStorage.removeItem("verbs");
+      if (window.localStorage.getItem("body"))
+        window.localStorage.removeItem("body");
+
+      body = require("./dictionary/body.json");
+      verbs = require("./dictionary/verbs.json");
+
+      this.listBody = body.join(", ");
+      this.listVerbs = verbs.join(", ");
     },
 
     startCountdown() {

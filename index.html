@@ -17,6 +17,9 @@
 
 				<div  class="navbar-menu">
 					<div class="navbar-end">
+						<a class="navbar-item " href="javascript:;" @click="openDictionary">
+							<span class="icon"><i class="fas fa-book"></i></span>
+						</a>
 						<a class="navbar-item " href="javascript:;" @click="openSettings">
 							<span class="icon"><i class="fas fa-cog"></i></span>
 						</a>
@@ -91,6 +94,54 @@
 		</section>
 
 
+		<section class="hero" v-if="showDictionary">
+			<div class="hero-body">
+				<div class="container">
+
+					<div class="card">
+						<div class="card-content">
+							<h1 class="title">Dictionary</h1>
+							<h3 class="subtitle">List words separated by commas (,) 🙈</h2>
+							<br>
+							<br>
+							<div class="field is-horizontal">
+								<div class="field-body">
+									<div class="field">
+										<label class="label">Verbs:</label>
+										<div class="control">
+											<textarea v-model.trim="listVerbs" class="textarea" placeholder="Separate words with commas"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+
+							<div class="field is-horizontal">
+								<div class="field-body">
+									<div class="field">
+										<label class="label">Body:</label>
+										<div class="control">
+											<textarea v-model.trim="listBody" class="textarea" placeholder="Separate words with commas"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						
+							<br>
+							<a class="button is-dark is-medium" @click="saveDictionary">Save</a>
+							<a class="button is-medium" @click="closeDictionary">Close</a>
+							<a class="button is-medium is-danger is-outlined game__dictionary-reset" 
+								@click="resetDictionary">Reset</a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+
 		<section id="hero" class="hero is-danger" v-if="showGame">
 			<div class="hero-body game__container">
 				<div class="container">
@@ -102,15 +153,20 @@
 							{{randomBody}}
 						</h1>
 						<h2 class="subtitle game__subaction" v-if="chkTime">
-							for ⏰ 
-							<countdown :time="randomDuration * 1000" 
-								v-bind:auto-start="true" 
-								v-on:countdownend="onCountdownEnd"
-								ref="countdown">
-								<template slot-scope="props"> 
-									<span class="pulse-animation">{{ props.seconds }}</span> seconds.
-								</template>
-							</countdown>
+							for ⏰ {{randomDuration}} seconds
+							<!--
+							<span class="pulse-animation">
+								<countdown :time="randomDuration * 1000" 
+									v-bind:auto-start="false" 
+									v-on:countdownend="onCountdownEnd"
+									ref="countdown">
+									<template slot-scope="props"> 
+										{{ props.seconds }} seconds.
+									</template>
+								</countdown>
+							</span>
+
+							-->
 							
 							<!--<a class="button is-warning is-focused is-rounded" 
 										@click="startCountdown">Start</a>
