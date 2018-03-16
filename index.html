@@ -102,7 +102,20 @@
 							{{randomBody}}
 						</h1>
 						<h2 class="subtitle game__subaction" v-if="chkTime">
-							for ⏰ {{randomDuration}} seconds {{test}}
+							for ⏰ 
+							<countdown :time="randomDuration * 1000" 
+								v-bind:auto-start="true" 
+								v-on:countdownend="onCountdownEnd"
+								ref="countdown">
+								<template slot-scope="props"> 
+									<span class="pulse-animation">{{ props.seconds }}</span> seconds.
+								</template>
+							</countdown>
+							
+							<!--<a class="button is-warning is-focused is-rounded" 
+										@click="startCountdown">Start</a>
+										-->
+							<audio ref="audioElm" src="http://www.gravomaster.com/alarm/sounds/ding.mp3"></audio>
 						</h2>
 					</div>
 					<a class="button is-dark is-large game__btn" 

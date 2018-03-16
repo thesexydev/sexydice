@@ -8,6 +8,8 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "@xkeshi/vue-countdown": "0.5.0",
+    "autoprefixer": "8.1.0",
     "stylus": "latest",
     "unique-random-array": "1.0.0"
   },

@@ -1,3 +1,4 @@
+import VueCountdown from "@xkeshi/vue-countdown";
 let uniqueRandomArray = require("unique-random-array");
 let body = require("./dictionary/body.json");
 let verbs = require("./dictionary/verbs.json");
@@ -19,17 +20,19 @@ var app = new Vue({
       showGame: false,
       showInstructions: false,
       remainingTime: 0,
-      test: ""
+      isCounting: true
     };
+  },
+  components: {
+    countdown: VueCountdown
   },
   methods: {
     randomize() {
       this.randomVerb = uniqueRandomArray(verbs)();
       this.randomBody = uniqueRandomArray(body)();
-      this.randomDuration = uniqueRandomArray([10, 30, 60])();
+      this.randomDuration = uniqueRandomArray([15, 35, 65])();
       this.randomPlayer = uniqueRandomArray([this.player1, this.player2])();
       this.showInstructions = true;
-      this.countdown();
     },
 
     closeSettings() {
@@ -54,8 +57,6 @@ var app = new Vue({
     savePlayersData() {
       console.log("savePlayersData");
       if (this.player1) {
-        console.log("this.player1", this.player1);
-
         window.localStorage.setItem("player1", this.player1);
       }
       if (this.player2) {
@@ -67,7 +68,14 @@ var app = new Vue({
       this.savePlayersData();
       this.closeSettings();
     },
-    countdown() {}
+
+    startCountdown() {
+      this.$refs.countdown.start();
+    },
+    onCountdownEnd() {
+      console.log("Countdown has finished");
+      this.$refs.audioElm.play();
+    }
   },
   mounted() {
     this.getPlayersData();
