@@ -46,7 +46,7 @@
 								<div class="field-body">
 									<div class="field">
 										<div class="control">
-											<input class="input is-large" type="text" 
+											<input class="input is-large1" type="text" 
 												placeholder="Enter name" v-model.trim="player1">
 										</div>
 									</div>
@@ -59,7 +59,7 @@
 								<div class="field-body">
 									<div class="field">
 										<div class="control">
-											<input class="input is-large" type="text" 
+											<input class="input is-large1" type="text" 
 												placeholder="Enter name" v-model.trim="player2">
 										</div>
 									</div>
@@ -149,7 +149,7 @@
 					<div class="game__instructions" v-if="showInstructions">
 						<h1 class="title game__action">
 							{{randomVerb}}
-							<span v-if="chkTurns">{{randomPlayer}}'s</span>
+							<span v-if="chkTurns">{{randomPlayer}}<span v-if="player1 && player2">'s</span></span>
 							{{randomBody}}
 						</h1>
 						<template  v-if="chkTime">
