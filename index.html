@@ -154,29 +154,29 @@
 						</h1>
 						<h2 class="subtitle game__subaction" v-if="chkTime">
 							for ⏰ {{randomDuration}} seconds
-							<!--
-							<span class="pulse-animation">
+							
+							<a class="button is-warning is-focused is-rounded" 
+							 :disabled="isBtnStartDisabled"
+								@click="startCountdown">Start</a>
+								<br>
+							<span class="game__remaining-seconds pulse-animation">
 								<countdown :time="randomDuration * 1000" 
 									v-bind:auto-start="false" 
 									v-on:countdownend="onCountdownEnd"
 									ref="countdown">
 									<template slot-scope="props"> 
-										{{ props.seconds }} seconds.
+										{{ props.seconds }}
 									</template>
 								</countdown>
 							</span>
 
-							-->
-							
-							<!--<a class="button is-warning is-focused is-rounded" 
-										@click="startCountdown">Start</a>
-										-->
+
 							<audio ref="audioElm" src="http://www.gravomaster.com/alarm/sounds/ding.mp3"></audio>
 						</h2>
 					</div>
-					<a class="button is-dark is-large game__btn" 
-						:disabled="isBtnDisabled" 
-						@click="randomize">Roll the dice 🙊</a>
+					<a class="button is-dark is-large game__btn pulse-animation" 
+						:disabled="isBtnRollDisabled" 
+						@click="roll">Roll the dice 🙊</a>
 				</div>
 			</div>
 		</section>

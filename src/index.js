@@ -7,7 +7,8 @@ var app = new Vue({
   el: "#app",
   data() {
     return {
-      isBtnDisabled: false,
+      isBtnRollDisabled: false,
+      isBtnStartDisabled: false,
       listBody: body.join(", "),
       listVerbs: verbs.join(", "),
       randomVerb: "",
@@ -21,9 +22,7 @@ var app = new Vue({
       showSettings: true,
       showDictionary: false,
       showGame: false,
-      showInstructions: false,
-      remainingTime: 0,
-      isCounting: true
+      showInstructions: false
     };
   },
   components: {
@@ -35,9 +34,13 @@ var app = new Vue({
       this.randomBody = uniqueRandomArray(body)();
       this.randomDuration = uniqueRandomArray([15, 30, 60])();
       this.randomPlayer = uniqueRandomArray([this.player1, this.player2])();
-      this.showInstructions = true;
     },
 
+    roll() {
+      this.randomize();
+      this.showInstructions = true;
+      this.isBtnStartDisabled = false;
+    },
     closeSettings() {
       this.showSettings = false;
       this.showGame = true;
@@ -87,11 +90,15 @@ var app = new Vue({
         console.log("this.player2", this.player2);
         window.localStorage.setItem("player2", this.player2);
       }
+
+      if (!this.chkTime) {
+        this.isBtnRollDisabled = false;
+      }
     },
     saveDictionaryData() {
       if (this.listVerbs) {
         this.listVerbs = this.listVerbs;
-        verbs = this.listVerbs
+        body = this.listVerbs
           .split(",")
           .map(item => item.trim())
           .filter(word => word !== "");
@@ -99,7 +106,7 @@ var app = new Vue({
       }
       if (this.listBody) {
         this.listBody = this.listBody;
-        body = this.listBody
+        verbs = this.listBody
           .split(",")
           .map(item => item.trim())
           .filter(word => word !== "");
@@ -129,10 +136,13 @@ var app = new Vue({
 
     startCountdown() {
       this.$refs.countdown.start();
+      this.isBtnStartDisabled = true;
+      this.isBtnRollDisabled = true;
     },
     onCountdownEnd() {
       console.log("Countdown has finished");
       this.$refs.audioElm.play();
+      this.isBtnRollDisabled = false;
     }
   },
   mounted() {
