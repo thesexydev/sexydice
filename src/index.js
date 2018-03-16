@@ -17,24 +17,21 @@ var app = new Vue({
       chkTurns: true,
       showSettings: true,
       showGame: false,
-      showInstructions: false
+      showInstructions: false,
+      remainingTime: 0,
+      test: ""
     };
   },
   methods: {
     randomize() {
       this.randomVerb = uniqueRandomArray(verbs)();
       this.randomBody = uniqueRandomArray(body)();
-      this.randomPlayer = uniqueRandomArray([this.player1, this.player2])();
       this.randomDuration = uniqueRandomArray([10, 30, 60])();
+      this.randomPlayer = uniqueRandomArray([this.player1, this.player2])();
       this.showInstructions = true;
-      this.disableButton();
+      this.countdown();
     },
-    disableButton() {
-      this.isBtnDisabled = true;
-      setTimeout(() => {
-        this.isBtnDisabled = false;
-      }, 1000);
-    },
+
     closeSettings() {
       this.showSettings = false;
       this.showGame = true;
@@ -69,7 +66,8 @@ var app = new Vue({
     saveSettings() {
       this.savePlayersData();
       this.closeSettings();
-    }
+    },
+    countdown() {}
   },
   mounted() {
     this.getPlayersData();

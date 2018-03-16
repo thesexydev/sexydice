@@ -91,7 +91,7 @@
 		</section>
 
 
-		<section class="hero is-danger" v-if="showGame">
+		<section id="hero" class="hero is-danger" v-if="showGame">
 			<div class="hero-body game__container">
 				<div class="container">
 
@@ -102,12 +102,12 @@
 							{{randomBody}}
 						</h1>
 						<h2 class="subtitle game__subaction" v-if="chkTime">
-							for ⏰ {{randomDuration}} seconds
+							for ⏰ {{randomDuration}} seconds {{test}}
 						</h2>
 					</div>
 					<a class="button is-dark is-large game__btn" 
 						:disabled="isBtnDisabled" 
-						@click.stop="randomize">Roll the dice 🙊</a>
+						@click="randomize">Roll the dice 🙊</a>
 				</div>
 			</div>
 		</section>
